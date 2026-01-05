@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CarRentalProject.Models.Car>
+@{
+    ViewData["Title"] = "Oferta";
+}
+
+<h2>Dostępne Samochody</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p><a asp-action="Create" class="btn btn-primary">Dodaj nowe auto (Admin)</a></p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Cena/Dzień</th>
+            <th>Kategoria</th>
+            <th>Akcja</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Brand</td>
+                <td>@item.Model</td>
+                <td>@item.PricePerDay PLN</td>
+                <td>@item.Category?.Name</td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Rentals" asp-action="Rent" asp-route-carId="@item.Id" class="btn btn-success btn-sm">Wynajmij</a>
+                    }
+                    else
+                    {
+                        <span>Zaloguj się aby wynająć</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

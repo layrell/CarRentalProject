@@ -1,0 +1,16 @@
+﻿@model CarRentalProject.Models.Rental
+@{
+    ViewData["Title"] = "Rezerwacja";
+}
+
+<h2>Potwierdź rezerwację</h2>
+<form asp-action="Rent">
+    <input type="hidden" asp-for="CarId" />
+    <div class="form-group">
+        <label asp-for="ReturnDate"></label>
+        <input asp-for="ReturnDate" type="date" class="form-control" />
+        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Rezerwuj</button>
+</form>

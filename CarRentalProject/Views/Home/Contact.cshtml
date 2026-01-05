@@ -1,0 +1,31 @@
+﻿@model CarRentalProject.Models.ContactMessage
+@{
+    ViewData["Title"] = "Kontakt";
+}
+
+<h2>Skontaktuj się z nami</h2>
+
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success">@ViewBag.Success</div>
+}
+
+<form asp-action="Contact">
+    <div class="form-group">
+        <label>Twoje Imię</label>
+        <input asp-for="SenderName" class="form-control" />
+        <span asp-validation-for="SenderName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Wiadomość</label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-info">Wyślij</button>
+</form>
