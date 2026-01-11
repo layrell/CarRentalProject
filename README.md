@@ -1,4 +1,4 @@
-# System Wypo¿yczalni Samochodów (Car Rental System)
+# System Wypo¿yczalni Samochodów
 
 ### Autorzy: Adam Ciesielski, Wojciech Czachurski
 
