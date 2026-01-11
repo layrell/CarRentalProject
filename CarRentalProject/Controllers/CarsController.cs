@@ -22,7 +22,7 @@ namespace CarRentalProject.Controllers
             return View(await cars.ToListAsync());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -30,7 +30,7 @@ namespace CarRentalProject.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Car car)
         {
@@ -51,8 +51,7 @@ namespace CarRentalProject.Controllers
             return await _context.Cars.ToListAsync();
         }
 
-
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -67,7 +66,7 @@ namespace CarRentalProject.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
