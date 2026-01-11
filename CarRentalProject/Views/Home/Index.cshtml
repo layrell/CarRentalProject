@@ -1,8 +1,25 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Strona Główna";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Witaj w Wypożyczalni Aut</h1>
+    <p class="lead">Najlepsze samochody w najniższych cenach.</p>
+    <hr />
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h3>🚗 Szeroki wybór</h3>
+            <p>Oferujemy auta miejskie, SUV-y i limuzyny.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>💸 Dobre Ceny</h3>
+            <p>Już od 100 PLN za dobę. Sprawdź naszą ofertę.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>🔒 Bezpieczeństwo</h3>
+            <p>Wszystkie nasze auta są ubezpieczone i serwisowane.</p>
+        </div>
+    </div>
+    <br />
+    <a asp-controller="Cars" asp-action="Index" class="btn btn-primary btn-lg">Zobacz Ofertę</a>
 </div>

@@ -1,0 +1,23 @@
+﻿@model CarRentalProject.Models.Car
+
+@{
+    ViewData["Title"] = "Usuń Auto";
+}
+
+<h3>Czy na pewno chcesz usunąć ten samochód?</h3>
+<div>
+    <h4>@Model.Brand @Model.Model</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Cena</dt>
+        <dd class="col-sm-10">@Model.PricePerDay PLN</dd>
+        <dt class="col-sm-2">Kategoria</dt>
+        <dd class="col-sm-10">@Model.Category?.Name</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Powrót</a>
+    </form>
+</div>

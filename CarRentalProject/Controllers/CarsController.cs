@@ -50,5 +50,34 @@ namespace CarRentalProject.Controllers
         {
             return await _context.Cars.ToListAsync();
         }
+
+
+        [Authorize]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var car = await _context.Cars
+                .Include(c => c.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (car == null) return NotFound();
+
+            return View(car);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car != null)
+            {
+                _context.Cars.Remove(car);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

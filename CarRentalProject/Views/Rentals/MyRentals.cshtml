@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CarRentalProject.Models.Rental>
+
+@{
+    ViewData["Title"] = "Moje Rezerwacje";
+}
+
+<h2>Historia Twoich rezerwacji</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Nie masz jeszcze żadnych rezerwacji.</div>
+    <a asp-controller="Cars" asp-action="Index" class="btn btn-primary">Wybierz auto</a>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Samochód</th>
+                <th>Data Wypożyczenia</th>
+                <th>Data Zwrotu</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Car != null)
+                        {
+                            <span>@item.Car.Brand @item.Car.Model</span>
+                        }
+                        else
+                        {
+                            <span>Auto usunięte</span>
+                        }
+                    </td>
+                    <td>@item.RentDate.ToShortDateString()</td>
+                    <td>@item.ReturnDate.ToShortDateString()</td>
+                    <td>
+                        @if (item.Car != null)
+                        {
+                            // Proste obliczenie ceny (Dni * Cena za dobę)
+                            var days = (item.ReturnDate - item.RentDate).Days;
+                            if (days < 1) days = 1;
+                            <span>@(days* item.Car.PricePerDay) PLN</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
