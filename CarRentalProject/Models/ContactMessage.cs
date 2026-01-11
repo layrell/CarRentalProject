@@ -7,14 +7,16 @@ namespace CarRentalProject.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Podaj swoje imię")]
-        public string SenderName { get; set; }
+        public string Name { get; set; } 
 
-        [Required]
+        [Required(ErrorMessage = "Podaj email")]
         [EmailAddress(ErrorMessage = "Niepoprawny email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wpisz treść wiadomości")]
         [StringLength(500, ErrorMessage = "Wiadomość jest za długa")]
         public string Message { get; set; }
+
+        public DateTime SentDate { get; set; } 
     }
 }
