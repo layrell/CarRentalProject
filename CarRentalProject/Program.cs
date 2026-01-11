@@ -44,26 +44,42 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    
+ 
     if (!await roleManager.RoleExistsAsync("Admin"))
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
-  
+    
     var adminEmail = "admin@test.pl";
     var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
-    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+   
+    if (adminUser == null)
+    {
+        var newAdmin = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+
+      
+        await userManager.CreateAsync(newAdmin, "Admin123!");
+
+        adminUser = newAdmin; 
+    }
+
+  
+    if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
     {
         await userManager.AddToRoleAsync(adminUser, "Admin");
     }
 }
+
+
+app.Run();
 
 
 
