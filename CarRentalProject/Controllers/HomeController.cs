@@ -32,21 +32,32 @@ namespace CarRentalProject.Controllers
             return View();
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact(ContactMessage message)
+       
+        public async Task<IActionResult> Contact(ContactMessage userData)
         {
+          
+            ModelState.Remove("SentDate");
+
             if (ModelState.IsValid)
             {
-                message.SentDate = DateTime.Now; 
-                _context.ContactMessages.Add(message);
+               
+                userData.SentDate = DateTime.Now;
+                _context.ContactMessages.Add(userData);
                 await _context.SaveChangesAsync();
 
-                ViewData["Message"] = "Dziêkujemy! Twoja wiadomoœæ zosta³a wys³ana.";
+                ModelState.Clear();
+
+              
+                ViewData["Success"] = "Dziêkujemy! Twoja wiadomoœæ zosta³a wys³ana.";
+
                 return View();
             }
-            return View(message);
+
+        
+            return View(userData);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

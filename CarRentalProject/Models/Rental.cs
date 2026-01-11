@@ -19,5 +19,7 @@ namespace CarRentalProject.Models
 
         public int CarId { get; set; }
         public Car? Car { get; set; }
+
+        public decimal TotalCost { get; set; } 
     }
 }

@@ -33,19 +33,13 @@ else
                         }
                         else
                         {
-                            <span>Auto usunięte</span>
+                            <span class="text-danger">Auto usunięte</span>
                         }
                     </td>
                     <td>@item.RentDate.ToShortDateString()</td>
                     <td>@item.ReturnDate.ToShortDateString()</td>
                     <td>
-                        @if (item.Car != null)
-                        {
-                            // Proste obliczenie ceny (Dni * Cena za dobę)
-                            var days = (item.ReturnDate - item.RentDate).Days;
-                            if (days < 1) days = 1;
-                            <span>@(days* item.Car.PricePerDay) PLN</span>
-                        }
+                        <strong>@item.TotalCost PLN</strong>
                     </td>
                 </tr>
             }

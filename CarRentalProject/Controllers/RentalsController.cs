@@ -2,6 +2,7 @@
 using CarRentalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CarRentalProject.Controllers
@@ -26,6 +27,7 @@ namespace CarRentalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Rent(Rental rental)
         {
+            
             if (rental.ReturnDate <= DateTime.Now)
             {
                 ModelState.AddModelError("ReturnDate", "Data zwrotu musi być w przyszłości!");
@@ -33,8 +35,27 @@ namespace CarRentalProject.Controllers
 
             if (ModelState.IsValid)
             {
+               
                 rental.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                
                 rental.RentDate = DateTime.Now;
+
+            
+                var car = await _context.Cars.FindAsync(rental.CarId);
+
+                if (car != null)
+                {
+                   
+                    var timeSpan = rental.ReturnDate - rental.RentDate;
+                    var days = (int)Math.Ceiling(timeSpan.TotalDays); 
+
+                    
+                    if (days < 1) days = 1;
+
+             
+                    rental.TotalCost = days * car.PricePerDay;
+                }
 
                 _context.Add(rental);
                 await _context.SaveChangesAsync();
@@ -43,10 +64,13 @@ namespace CarRentalProject.Controllers
             return View(rental);
         }
 
-        public IActionResult MyRentals()
+        public async Task<IActionResult> MyRentals()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rentals = _context.Rentals.Where(r => r.UserId == userId).ToList();
+            var rentals = await _context.Rentals
+                .Include(r => r.Car)
+                .Where(r => r.User.UserName == User.Identity.Name) 
+                .ToListAsync();
             return View(rentals);
         }
     }
