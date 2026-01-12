@@ -1,70 +1,70 @@
-# System Wypo¿yczalni Samochodów
+# System WypoÅ¼yczalni SamochodÃ³w
 
 ### Autorzy: Adam Ciesielski, Wojciech Czachurski
 
 ## 1. Opis Projektu
-Aplikacja internetowa typu ASP.NET Core MVC s³u¿¹ca do kompleksowej obs³ugi wypo¿yczalni samochodów. System umo¿liwia przegl¹danie floty, rezerwacjê pojazdów z automatycznym wyliczaniem kosztów oraz zarz¹dzanie ofert¹ przez panel administratora.
+Aplikacja internetowa typu ASP.NET Core MVC sÅ‚uÅ¼Ä…ca do kompleksowej obsÅ‚ugi wypoÅ¼yczalni samochodÃ³w. System umoÅ¼liwia przeglÄ…danie floty, rezerwacjÄ™ pojazdÃ³w z automatycznym wyliczaniem kosztÃ³w oraz zarzÄ…dzanie ofertÄ… przez konto administratora.
 
 ## 2. Wykorzystane Technologie
-* Jêzyk: C#
+* JÄ™zyk: C#
 * Framework: ASP.NET Core 8.0 (MVC)
 * Baza danych: Entity Framework Core + SQLite (plik app.db)
 * Uwierzytelnianie: ASP.NET Core Identity
 * Frontend: Razor Views, Bootstrap 5
-* API: REST endpoint dla listy pojazdów
+* API: REST endpoint dla listy pojazdÃ³w
 
-## 3. Funkcjonalnoœci
+## 3. FunkcjonalnoÅ›ci
 
-### Dla U¿ytkownika (Klient)
-* Rejestracja i Logowanie: Bezpieczne zak³adanie konta z walidacj¹ danych.
-* Przegl¹danie Oferty: Lista dostêpnych aut z podzia³em na marki, modele i ceny.
+### Dla UÅ¼ytkownika (Klient)
+* Rejestracja i Logowanie: Bezpieczne zakÅ‚adanie konta z walidacjÄ… danych.
+* PrzeglÄ…danie Oferty: Lista dostÄ™pnych aut z podziaÅ‚em na marki, modele i ceny.
 * Rezerwacja Pojazdu:
-  * Wybór daty odbioru i zwrotu.
+  * WybÃ³r daty odbioru i zwrotu.
   * Walidacja dat - blokada wyboru daty wstecznej.
-  * Automatyczne obliczanie ceny: System liczy pe³ne doby i mno¿y przez stawkê dzienn¹ auta.
-* Panel Klienta: Podgl¹d historii w³asnych rezerwacji.
-* Kontakt: Formularz kontaktowy wysy³aj¹cy wiadomoœci do bazy.
+  * Automatyczne obliczanie ceny: System liczy peÅ‚ne doby i mnoÅ¼y przez stawkÄ™ dziennÄ… auta.
+* Panel Klienta: PodglÄ…d historii wÅ‚asnych rezerwacji.
+* Kontakt: Formularz kontaktowy wysyÅ‚ajÄ…cy wiadomoÅ›ci do bazy.
 
 ### Dla Administratora (Admin)
-* Zarz¹dzanie Flot¹: Dodawanie i usuwanie samochodów z oferty.
-* Role i Uprawnienia: Dostêp do funkcji edycji (Create, Delete) chroniony atrybutem [Authorize(Roles = "Admin")].
-* Auto-Setup: Konto Administratora tworzy siê automatycznie przy pierwszym uruchomieniu aplikacji, jeœli nie istnieje.
+* ZarzÄ…dzanie FlotÄ…: Dodawanie i usuwanie samochodÃ³w z oferty.
+* Role i Uprawnienia: DostÄ™p do funkcji edycji (Create, Delete) chroniony atrybutem [Authorize(Roles = "Admin")].
+* Auto-Setup: Konto Administratora tworzy siÄ™ automatycznie przy pierwszym uruchomieniu aplikacji, jeÅ›li nie istnieje.
 
 ## 4. Baza Danych (SQLite)
-Projekt wykorzystuje podejœcie Code First. Baza danych jest przechowywana w lokalnym pliku app.db.
-G³ówne tabele:
+Projekt wykorzystuje podejÅ›cie Code First. Baza danych jest przechowywana w lokalnym pliku app.db.
+GÅ‚Ã³wne tabele:
 * Cars - Pojazdy.
-* Categories - Kategorie pojazdów.
+* Categories - Kategorie pojazdÃ³w.
 * Rentals - Rezerwacje.
-* ContactMessages - Wiadomoœci z formularza.
-* AspNetUsers - U¿ytkownicy i role systemowe.
+* ContactMessages - WiadomoÅ›ci z formularza.
+* AspNetUsers - UÅ¼ytkownicy i role systemowe.
 
-Uwaga: Plik bazy danych nie jest przechowywany w repozytorium (jest ignorowany przez .gitignore). Baza tworzy siê automatycznie po wykonaniu instrukcji uruchomienia.
+Uwaga: Plik bazy danych nie jest przechowywany w repozytorium (jest ignorowany przez .gitignore). Baza tworzy siÄ™ automatycznie po wykonaniu instrukcji uruchomienia.
 
 ## 5. Instrukcja Uruchomienia
 
-Aby uruchomiæ projekt na czystym œrodowisku:
+Aby uruchomiÄ‡ projekt na czystym Å›rodowisku:
 
 1. Sklonuj repozytorium lub wypakuj projekt.
-2. Otwórz terminal w folderze projektu.
-3. Wykonaj migracjê bazy danych (utworzy to plik app.db):
+2. OtwÃ³rz terminal w folderze projektu.
+3. Wykonaj migracjÄ™ bazy danych (utworzy to plik app.db):
    dotnet ef database update
-4. Uruchom aplikacjê:
+4. Uruchom aplikacjÄ™:
    dotnet run
 
-Aplikacja uruchomi siê domyœlnie pod adresem localhost.
+Aplikacja uruchomi siÄ™ domyÅ›lnie pod adresem localhost.
 
 ## 6. Dane Logowania
 
-Przy pierwszym uruchomieniu system automatycznie tworzy konto Administratora oraz przyk³adowe samochody (mechanizm seedowania).
+Przy pierwszym uruchomieniu system automatycznie tworzy konto Administratora oraz przykÅ‚adowe samochody (mechanizm seedowania).
 
 Konto Administratora:
 * Email: admin@test.pl
-* Has³o: Admin123!
+* HasÅ‚o: Admin123!
 
-Zwykli u¿ytkownicy mog¹ zak³adaæ konta samodzielnie poprzez formularz "Register".
+Zwykli uÅ¼ytkownicy mogÄ… zakÅ‚adaÄ‡ konta samodzielnie poprzez formularz "Register".
 
 ## 7. API Endpoint
-Aplikacja wystawia publiczny endpoint API zwracaj¹cy listê samochodów w formacie JSON:
+Aplikacja wystawia publiczny endpoint API zwracajÄ…cy listÄ™ samochodÃ³w w formacie JSON:
 * Adres: /api/cars/all
 * Metoda: GET
